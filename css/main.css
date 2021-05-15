@@ -1,0 +1,21 @@
+/* Add custom styles here */
+
+  .demo-card-header-pic .card-header {
+    height: 400px;
+    object-fit: fill;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .lol-button{
+  	margin-left: 25px;
+  	margin-right: 25px;
+  }
+
+  .mainview{
+  	width: cover;
+  }
+
+  .numbers{
+    background:#E6E6E6;
+  }

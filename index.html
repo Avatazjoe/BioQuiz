@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html ng-app="MyApp">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+    <title>BioQuiz</title>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/framework7/1.3.1/css/framework7.ios.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/framework7/1.3.1/css/framework7.ios.colors.min.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/framework7/1.3.1/js/framework7.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.js"></script>
+    
+    <script type="text/javascript" src="js/config.js"></script>
+    <script type="text/javascript" src="js/service/InitService.js"></script>
+    <script type="text/javascript" src="js/controller/IndexPageController.js"></script>
+    <script type="text/javascript" src="js/controller/GamePageController.js"></script>
+    <script type="text/javascript" src="js/controller/GamePageController2.js"></script>
+    
+  </head>
+
+
+  <body style="height: 100%;">
+
+
+
+
+
+
+    <div class="statusbar-overlay"></div>
+    <div class="panel-overlay"></div>
+    <div class="views mainview" layout-align="left">
+      <div class="view view-main">
+        
+        <!-- Navbar -->
+        <div class="navbar no-border">
+          
+          <div class="navbar-inner">
+            <div class="left"></div>
+            <div class="center sliding">BioQuiz</div>
+            <div class="right"></div>
+          </div>
+
+          <div class="navbar-inner cached" data-page="gamePage">
+            
+            <div class="left sliding">
+              
+            </div>            <div class="center sliding">Histology & Histolopathology</div>
+
+            <div class="right" ng-controller="GamePageController">
+              <a href="#" ng-click="resetGame()" class="link">
+                <span>New game</span>
+              </a>
+            </div>
+
+
+          </div>
+
+
+          <div class="navbar-inner cached" data-page="gamePage2">
+            
+            <div class="left sliding">
+              
+            </div> 
+            <div class="center sliding">Histology & Histolopathology</div>
+
+            <div class="right" ng-controller="GamePageController2">
+              <a href="#" ng-click="resetGame()" class="link">
+                <span>New game</span>
+              </a>
+            </div>
+
+
+          </div>
+
+        </div>
+        
+
+        <!-- Pages -->
+        <div class="pages navbar-through toolbar-through">
+          
+
+
+          <div data-page="index" class="page" ng-controller="IndexPageController">
+            <!-- Page content-->
+            <div class="page-content">
+
+              <div class="list-block inset">
+                  
+                  <div id="qholder" style="">
+	        			      <div class="card demo-card-header-pic">
+						    	       <div style="background-image:url(./images/icon-dna-microscope.png);background-repeat: no-repeat;background-size:300px 300px;" valign="center" class="card-header color-white no-border"></div>
+						          </div>
+						          <p><a href="#gamePage" class="button button-big button-fill color-green lol-button">Start Play</a></p>
+                      <!-- 
+                      <p><a href="#gamePage2" class="button button-big button-fill color-red lol-button">DIFFICULT</a></p>
+                      -->
+
+      						    <br>
+      						    <br>
+						    
+      						    
+						
+	        		     </div>
+				      </div>
+            </div>
+          </div>
+
+
+          <!-- Page 2 -->
+          <div data-page="gamePage" class="page cached" ng-controller="GamePageController">
+            <!-- Page content-->
+            <div class="page-content">
+              
+        		<div class="row">
+				      <div ng-repeat="question in questions" class="col-10 numbers" id="numbers-{{question}}"><center style="padding: 5px;">{{question}}</center></div>
+				    </div>
+
+        		<div class="list-block inset">
+
+  	        		<div id="cholder">
+  	        			<div ng-repeat="card in cards" style="display: {{card.display}}" id="{{card.id}}">
+  	        				<div class="card demo-card-header-pic">
+  						    	<div style="background-image:url(./images/champions/{{card.img}}_Splash_Tile_0.jpg);background-repeat: no-repeat;" valign="bottom" class="card-header color-white no-border"></div>
+  						    </div>
+
+  						    <p><a href="#" id="a-{{card.id}}" ng-click="checkAnswer(this, card.a, card.t, 'a', card.id)" class="button button-big button-fill color-lightblue lol-button">{{card.a}}</a></p>
+  						    <p><a href="#" id="b-{{card.id}}" ng-click="checkAnswer(this, card.b, card.t, 'b', card.id)" class="button button-big button-fill color-lightblue lol-button">{{card.b}}</a></p>
+  						    <p><a href="#" id="c-{{card.id}}" ng-click="checkAnswer(this, card.c, card.t, 'c', card.id)" class="button button-big button-fill color-lightblue lol-button">{{card.c}}</a></p>
+  						    <p><a href="#" id="d-{{card.id}}" ng-click="checkAnswer(this, card.d, card.t, 'd', card.id)" class="button button-big button-fill color-lightblue lol-button">{{card.d}}</a></p>
+
+  	        			</div>
+  	        		</div>
+
+
+                <div id="result" style="display: none;">
+                
+                <p><center><h1><span id="message-text">Congrats</span></h1></center></p>
+                <br>
+                <p><center>Your Score</center></p>
+                <p><center><h1><span id="score-text">10/10</span></h1></center></p>
+                
+
+                <br>
+                <br>
+
+                <p><a href="#" ng-click="resetGame()" class="button button-big button-fill color-lightblue lol-button">NEW GAME</a></p>
+                
+                
+            
+              </div>
+
+
+
+  				  </div>
+
+            </div>
+          </div>
+
+
+          <!-- page 3 -->
+          <!-- Page 2 -->
+          <div data-page="gamePage2" class="page cached" ng-controller="GamePageController2">
+            <!-- Page content-->
+            <div class="page-content">
+              
+            <div class="row">
+              <div ng-repeat="question in questions" class="col-10 numbers" id="numbers1-{{question}}"><center style="padding: 5px;">{{question}}</center></div>
+            </div>
+
+            <div class="list-block inset">
+
+                <div id="eholder">
+                  <div ng-repeat="card in cards" style="display: {{card.display}}" id="{{card.id}}">
+                    <div class="card demo-card-header-pic">
+                    <div style="background-image:url(./images/champions/{{card.img}}_Splash_Tile_{{card.picId}}.jpg)" valign="bottom" class="card-header color-white no-border"></div>
+                  </div>
+
+                  <p><a href="#" id="a1-{{card.id}}" ng-click="checkAnswer1(this, card.a, card.t, 'a1', card.id)" class="button button-big button-fill color-lightblue lol-button">{{card.a}}</a></p>
+                  <p><a href="#" id="b1-{{card.id}}" ng-click="checkAnswer1(this, card.b, card.t, 'b1', card.id)" class="button button-big button-fill color-lightblue lol-button">{{card.b}}</a></p>
+                  <p><a href="#" id="c1-{{card.id}}" ng-click="checkAnswer1(this, card.c, card.t, 'c1', card.id)" class="button button-big button-fill color-lightblue lol-button">{{card.c}}</a></p>
+                  <p><a href="#" id="d1-{{card.id}}" ng-click="checkAnswer1(this, card.d, card.t, 'd1', card.id)" class="button button-big button-fill color-lightblue lol-button">{{card.d}}</a></p>
+
+                  </div>
+                </div>
+
+
+                <div id="result1" style="display: none;">
+                
+                <p><center><h1><span id="message-text1">Congrats</span></h1></center></p>
+                <br>
+                <p><center>Your Score</center></p>
+                <p><center><h1><span id="score-text1">10/10</span></h1></center></p>
+                
+
+                <br>
+                <br>
+
+                <p><a href="#" ng-click="resetGame()" class="button button-big button-fill color-lightblue lol-button">NEW GAME</a></p>
+                
+                
+            
+              </div>
+
+
+
+            </div>
+
+            </div>
+          </div>
+          <!-- end -->
+
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+  </body>
+</html>
